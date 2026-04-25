@@ -112,8 +112,6 @@ agent_builder:
 agent_core:
   agent_list: エージェント一覧
   description_label: 説明
-  external: 外部
-  generic: 汎用
   model: モデル
   no_agents: 利用可能なエージェントがありません
   no_description: 説明なし

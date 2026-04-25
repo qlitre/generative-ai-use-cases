@@ -4,8 +4,6 @@ agent:
 agent_core:
   agent_list: 에이전트 목록
   description_label: 설명
-  external: 외부
-  generic: 범용
   model: 모델
   no_agents: 사용 가능한 에이전트가 없습니다
   no_description: 설명 없음

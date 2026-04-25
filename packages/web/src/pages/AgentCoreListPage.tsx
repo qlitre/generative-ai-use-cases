@@ -11,22 +11,9 @@ const AgentCoreListPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { getGenericRuntime, getExternalRuntimes, getAllAvailableRuntimes } =
-    useAgentCore('agent-core-list');
+  const { getAllAvailableRuntimes } = useAgentCore('agent-core-list');
 
   const allRuntimes = getAllAvailableRuntimes();
-  const genericRuntime = getGenericRuntime();
-  const externalRuntimes = getExternalRuntimes();
-
-  const getRuntimeTag = (runtime: AgentCoreConfiguration): string => {
-    if (genericRuntime && runtime.arn === genericRuntime.arn) {
-      return t('agent_core.generic');
-    }
-    if (externalRuntimes.some((r) => r.arn === runtime.arn)) {
-      return t('agent_core.external');
-    }
-    return '';
-  };
 
   const filteredRuntimes = useMemo(() => {
     if (!searchTerm) return allRuntimes;
@@ -68,7 +55,6 @@ const AgentCoreListPage: React.FC = () => {
 
         {filteredRuntimes.map((runtime, idx) => {
           const displayName = runtime.display_name || runtime.name;
-          const tag = getRuntimeTag(runtime);
 
           return (
             <div
@@ -76,15 +62,8 @@ const AgentCoreListPage: React.FC = () => {
               className={`flex cursor-pointer flex-row items-center gap-x-2 p-3 hover:bg-gray-100 ${idx > 0 ? 'border-t' : ''}`}
               onClick={() => handleClick(runtime)}>
               <div className="flex flex-1 flex-col justify-start">
-                <div className="mb-1 flex items-center gap-2">
-                  <div className="line-clamp-1 text-sm font-bold">
-                    {displayName}
-                  </div>
-                  {tag && (
-                    <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">
-                      {tag}
-                    </span>
-                  )}
+                <div className="mb-1 line-clamp-1 text-sm font-bold">
+                  {displayName}
                 </div>
                 {runtime.description ? (
                   <div className="line-clamp-2 text-xs font-light text-gray-600">

@@ -121,8 +121,6 @@ agent_builder:
 agent_core:
   agent_list: Agent List
   description_label: Description
-  external: External
-  generic: Generic
   model: Model
   no_agents: No agents available
   no_description: No description

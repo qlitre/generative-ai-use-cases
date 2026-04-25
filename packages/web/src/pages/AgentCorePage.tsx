@@ -258,17 +258,28 @@ const AgentCorePage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [availableModels]);
 
+  // Find the current runtime configuration
+  const currentRuntime = useMemo(() => {
+    if (agentArn) {
+      const decodedArn = decodeURIComponent(agentArn);
+      return allAvailableRuntimes.find((r) => r.arn === decodedArn);
+    }
+    return undefined;
+  }, [agentArn, allAvailableRuntimes]);
+
   // Calculate page title from runtime options
   const pageTitle = useMemo(() => {
+    if (currentRuntime) {
+      return currentRuntime.display_name || currentRuntime.name;
+    }
     if (agentArn && runtimeOptions.length > 0) {
-      // Find the runtime name from runtimeOptions
       const runtime = runtimeOptions.find(
         (option) => option.value === decodeURIComponent(agentArn)
       );
       return runtime ? runtime.label : t('agent_core.title', 'AgentCore');
     }
     return t('agent_core.title', 'AgentCore');
-  }, [agentArn, runtimeOptions, t]);
+  }, [currentRuntime, agentArn, runtimeOptions, t]);
 
   const showingMessages = useMemo(() => {
     return messages;
@@ -279,8 +290,13 @@ const AgentCorePage: React.FC = () => {
       <div
         onDragOver={fileUpload ? handleDragOver : undefined}
         className={`${!isEmpty ? 'screen:pb-48' : ''} relative`}>
-        <div className="invisible my-0 flex h-0 items-center justify-center text-xl font-semibold lg:visible lg:my-5 lg:h-min print:visible print:my-5 print:h-min">
-          {pageTitle}
+        <div className="invisible my-0 flex h-0 flex-col items-center justify-center lg:visible lg:my-5 lg:h-min print:visible print:my-5 print:h-min">
+          <div className="text-xl font-semibold">{pageTitle}</div>
+          {currentRuntime?.description && (
+            <div className="mt-1 text-sm text-gray-500">
+              {currentRuntime.description}
+            </div>
+          )}
         </div>
 
         {/* File Drop Overlay */}

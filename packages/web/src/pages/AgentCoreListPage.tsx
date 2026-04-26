@@ -23,7 +23,7 @@ const AgentCoreListPage: React.FC = () => {
       return (
         displayName.toLowerCase().includes(term) ||
         runtime.name.toLowerCase().includes(term) ||
-        runtime.description.toLowerCase().includes(term)
+        runtime.description?.toLowerCase().includes(term)
       );
     });
   }, [allRuntimes, searchTerm]);

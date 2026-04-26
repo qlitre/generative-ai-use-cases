@@ -13,9 +13,8 @@ const AgentCoreListPage: React.FC = () => {
 
   const { getAllAvailableRuntimes } = useAgentCore('agent-core-list');
 
-  const allRuntimes = getAllAvailableRuntimes();
-
   const filteredRuntimes = useMemo(() => {
+    const allRuntimes = getAllAvailableRuntimes();
     if (!searchTerm) return allRuntimes;
     const term = searchTerm.toLowerCase();
     return allRuntimes.filter((runtime) => {
@@ -23,10 +22,10 @@ const AgentCoreListPage: React.FC = () => {
       return (
         displayName.toLowerCase().includes(term) ||
         runtime.name.toLowerCase().includes(term) ||
-        runtime.description?.toLowerCase().includes(term)
+        runtime.description.toLowerCase().includes(term)
       );
     });
-  }, [allRuntimes, searchTerm]);
+  }, [searchTerm, getAllAvailableRuntimes]);
 
   const handleClick = (runtime: AgentCoreConfiguration) => {
     navigate(`/agent-core/${encodeURIComponent(runtime.arn)}`);
@@ -58,22 +57,16 @@ const AgentCoreListPage: React.FC = () => {
 
           return (
             <div
-              key={runtime.arn}
+              key={idx}
               className={`flex cursor-pointer flex-row items-center gap-x-2 p-3 hover:bg-gray-100 ${idx > 0 ? 'border-t' : ''}`}
               onClick={() => handleClick(runtime)}>
               <div className="flex flex-1 flex-col justify-start">
                 <div className="mb-1 line-clamp-1 text-sm font-bold">
                   {displayName}
                 </div>
-                {runtime.description ? (
-                  <div className="line-clamp-2 text-xs font-light text-gray-600">
-                    {runtime.description}
-                  </div>
-                ) : (
-                  <div className="text-xs font-light text-gray-400">
-                    {t('agent_core.no_description')}
-                  </div>
-                )}
+                <div className="line-clamp-2 text-xs font-light text-gray-600">
+                  {runtime.description}
+                </div>
               </div>
             </div>
           );

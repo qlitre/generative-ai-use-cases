@@ -768,7 +768,7 @@ Each entry supports the following fields:
 - `name` (required): Identifier for the runtime. AgentCore Runtime names only allow alphanumeric characters and underscores.
 - `arn` (required): ARN of the AgentCore Runtime.
 - `display_name` (optional): Display name shown in the UI. Useful when you want to show a more descriptive name (including non-ASCII characters such as Japanese) without changing the underlying `name`.
-- `description` (optional): Description of the agent. Shown on the agent list page and at the top of the chat page so users can understand the role of each agent at a glance.
+- `description` (required): Description of the agent. Shown on the agent list page and at the top of the chat page so users can understand the role of each agent at a glance.
 
 When accessing services outside AWS from AgentCore Runtime, use AgentCore Gateway.
 By specifying the Gateway ARN in `agentCoreGatewayArns`, an IAM policy following the principle of least privilege will be configured.

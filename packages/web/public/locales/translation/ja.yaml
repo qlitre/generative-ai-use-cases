@@ -114,7 +114,6 @@ agent_core:
   description_label: 説明
   model: モデル
   no_agents: 利用可能なエージェントがありません
-  no_description: 説明なし
   runtime: ランタイム
   search_agents: エージェントを検索...
   start_conversation: AgentCore と会話を始める

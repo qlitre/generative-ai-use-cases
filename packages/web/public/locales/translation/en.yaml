@@ -123,7 +123,6 @@ agent_core:
   description_label: Description
   model: Model
   no_agents: No agents available
-  no_description: No description
   runtime: Runtime
   search_agents: Search agents...
   start_conversation: Start a conversation with AgentCore
